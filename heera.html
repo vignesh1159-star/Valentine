@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine?</title>
+  <style>
+    body{
+      background:#ffe6f0;
+      font-family: Arial, sans-serif;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+    }
+    .card{
+      background:#fff;
+      padding:40px 30px;
+      border-radius:18px;
+      box-shadow:0 10px 25px rgba(0,0,0,.15);
+      width:min(520px, 92vw);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    h2{ margin:0 0 24px; font-size:28px; }
+    .btn-row{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      margin-top:10px;
+      position:relative;
+      height:70px; /* space for No to move */
+    }
+    button{
+      font-size:18px;
+      padding:14px 28px;
+      border:none;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    #yes{ background:#ff4d6d; color:white; }
+    #no{
+      background:#d9d9d9;
+      color:#222;
+      position:absolute;
+      left:60%;
+      top:0;
+      transform:translateX(-50%);
+    }
+    .tiny{ font-size:12px; opacity:.7; margin-top:16px; }
+    img{ margin-top:14px; border-radius:14px; max-width:260px; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <h2 id="question">Heera My Jamunae 🥰, will you be my Valentine? ❤️</h2>
+
+    <div class="btn-row" id="arena">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
+    </div>
+
+    <div class="tiny">“No” seems a bit shy 😈</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const arena = document.getElementById("arena");
+    const card = document.getElementById("card");
+
+    function moveNo(){
+      const arenaRect = arena.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      // keep inside the arena box
+      const maxX = arenaRect.width - btnRect.width;
+      const maxY = arenaRect.height - btnRect.height;
+
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+      noBtn.style.transform = "none";
+    }
+
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("click", moveNo); // mobile tap support too
+
+    yesBtn.addEventListener("click", () => {
+      card.innerHTML = `
+        <h2>YAY!!! 🎉❤️</h2>
+        <p>You are my Valentine forever 💕</p>
+        <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif" alt="yay" />
+      `;
+    });
+  </script>
+</body>
+</html>
